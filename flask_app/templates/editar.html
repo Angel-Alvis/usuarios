@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Editar:</h1>
+    <form action="{{ url_for('formEditar', id=usuario.id) }}" method="post">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" value="{{usuario.nombre}}">
+        <label for="apellido">Apellido</label>
+        <input type="text" name="apellido" id="apellido" value="{{usuario.apellido}}">
+        <label for="apellido">Email</label>
+        <input type="text" name="email" id="email" value="{{usuario.email}}">
+        <button type="submit">Enviar</button>
+    </form>
+    <a href="{{url_for('pagInicio')}}">Volver</a>
+</body>
+</html>

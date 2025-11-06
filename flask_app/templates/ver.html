@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Usuario {{usuario.id}}</h1>
+    <h2>Nombre: {{usuario.nombre}}</h2>
+    <h2>Apellido: {{usuario.apellido}}</h2>
+    <h2>Email: {{usuario.email}}</h2>
+    <h2>Actualizado en: {{usuario.updated_at}}</h2>
+    <a href="{{ url_for('pagEditar', id=usuario.id) }}">Editar</a>
+    <a href="{{ url_for('eliminar_usuario', id=usuario.id) }}">Eliminar</a>
+    <a href="{{url_for('pagInicio')}}">Volver</a>
+</body>
+</html>

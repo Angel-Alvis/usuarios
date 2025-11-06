@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+</head>
+<body>
+    <nav>
+        <h1>Usuarios</h1>
+        <button><a href='/registro'>Nuevo Usuario</a></button>
+    </nav>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE COMPLETO</th>
+            <th>EMAIL</th>
+            <th>FECHA DE CREACIÓN</th>
+            <th>ACCIONES</th>
+        </tr>
+        {% for un_usuario in total_usuarios %}
+        <tr>
+            <td>{{un_usuario.id}}</td>
+            <td>{{un_usuario.nombre}} {{un_usuario.apellido}}</td>
+            <td>{{un_usuario.email}}</td>
+            <td>{{un_usuario.created_at}}</td>
+            <td><a href="{{ url_for('pagVer', id=un_usuario.id) }}">Ver</a><br><a href="{{ url_for('pagEditar', id=un_usuario.id) }}">Editar</a><br><a href="{{ url_for('eliminar_usuario', id=un_usuario.id) }}">Eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
