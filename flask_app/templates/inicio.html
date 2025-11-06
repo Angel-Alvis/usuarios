@@ -10,6 +10,9 @@
         <h1>Usuarios</h1>
         <button><a href='/registro'>Nuevo Usuario</a></button>
     </nav>
+    {%if total_usuarios|length == 0%}
+        <p>No hay usuarios</p>
+    {%else%}
     <table border="1">
         <tr>
             <th>ID</th>
@@ -28,5 +31,6 @@
         </tr>
         {% endfor %}
     </table>
+    {%endif%}
 </body>
 </html>

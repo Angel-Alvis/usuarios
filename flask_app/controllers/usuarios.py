@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, flash
 from flask_app.models.usuario import Usuario
 
 @app.route('/')
@@ -22,6 +22,8 @@ def formularioRegistro():
         'apellido':request.form['apellido'],
         'email':request.form['email']
     }
+    if not Usuario. validacion(datos):
+        return redirect ('/registro')
     Usuario.save(datos)
     return redirect('/')
 

@@ -1,4 +1,8 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
+import re
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class Usuario:
     def __init__(self, data):
@@ -9,24 +13,40 @@ class Usuario:
         self.created_at=data['created_at']
         self.updated_at=data['updated_at']
 
+    @staticmethod
+    def validacion(datos):
+        esCorrecto=True
+        if len(datos['nombre']) == 0:
+            flash('Nombre inválido', 'nombre')
+            esCorrecto = False
+        if len(datos['apellido']) == 0:
+            flash('Apellido inválido', 'apellido')
+            esCorrecto = False
+        if not EMAIL_REGEX.match(datos['email']):
+            flash('E-mail es invalido','email')
+            esCorrecto = False
+        if Usuario.get_by_email(datos):
+            flash('E-mail ya es usado','email')
+            esCorrecto = False
+        return esCorrecto
+
     @classmethod
     def get_all(cls):
         query="select * from usuarios;"
         resultados=connectToMySQL('db_usuarios').query_db(query)
         usuarios=[]
-        print('\n\n\nresultados print \n\n\n')
-        print(resultados)
-        print(type(resultados))
         for usuario in resultados:
-            print('\n\n\nusuario print \n\n\n')
-            print(usuario)
-            print(type(usuario))
             usuarios.append(cls(usuario))
-            print('\n\n\nusuarios print \n\n\n')
-            print(usuarios)
-            print(type(usuarios))
         return usuarios
-    
+
+    @classmethod
+    def get_by_email(cls, datos):
+        query="select email from usuarios where email=%(email)s;"
+        resultados=connectToMySQL('db_usuarios').query_db(query, datos)
+        if len(resultados) < 1:
+            return False
+        return True
+
     @classmethod
     def get_by_id(cls,datos):
         query="select * from usuarios where id=%(id)s;"

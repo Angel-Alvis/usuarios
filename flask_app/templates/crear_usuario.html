@@ -10,10 +10,28 @@
     <form action="{{url_for('formularioRegistro')}}" method="post">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" id="nombre">
+        {% with mensajes = get_flashed_messages(category_filter=["nombre"]) %}
+            {% if mensajes %}
+             <p>{{ mensajes[0] }}</p>
+            {% endif %}
+        {% endwith %}
+        <br>
         <label for="apellido">Apellido</label>
         <input type="text" name="apellido" id="apellido">
+        {% with mensajes = get_flashed_messages(category_filter=["apellido"]) %}
+            {% if mensajes %}
+             <p>{{ mensajes[0] }}</p>
+            {% endif %}
+        {% endwith %}
+        <br>
         <label for="apellido">Email</label>
         <input type="text" name="email" id="email">
+        {% with mensajes = get_flashed_messages(category_filter=["email"]) %}
+            {% if mensajes %}
+             <p>{{ mensajes[0] }}</p>
+            {% endif %}
+        {% endwith %}
+        <br>
         <button type="submit">Enviar</button>
     </form>
     <a href="{{url_for('pagInicio')}}">Volver</a>
